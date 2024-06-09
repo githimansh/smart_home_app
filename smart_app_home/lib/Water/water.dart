@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:smart_app_home/Water/pump_speed.dart';
-import 'package:smart_app_home/constants.dart';
 
 class WaterScreen extends StatelessWidget {
   const WaterScreen({super.key});
@@ -13,6 +11,7 @@ class WaterScreen extends StatelessWidget {
       body: SafeArea(
           child: Container(
         margin: const EdgeInsets.only(
+          top: 18,
           left: 25,
           right: 25,
         ),
@@ -44,14 +43,14 @@ class WaterScreen extends StatelessWidget {
                     radius: 110,
                     lineWidth: 20,
                     percent: 0.65,
-                    backgroundColor: const Color(0xFFEAE4FF),
-                    progressColor: textColor,
+                    backgroundColor: Color.fromARGB(255, 217, 213, 233),
+                    progressColor: Colors.blue,
                     center: Text(
-                      "65%",
+                      "85%",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: textColor,
-                          fontSize: 40),
+                          fontSize: 45),
                     ),
                   ),
                   const SizedBox(
@@ -78,10 +77,10 @@ class WaterScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  // For pump speed
+                
                   const PumpSpeed(),
                   const SizedBox(height: 20),
-                  // For valves
+                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -95,6 +94,7 @@ class WaterScreen extends StatelessWidget {
                       ),
                       valve(
                         title: "VALVE 3",
+
                       ),
                     ],
                   ),
@@ -126,7 +126,10 @@ class WaterScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Image.asset(
-                    "images/image.png", fit: BoxFit.cover,),
+                  "images/image.png",
+                  fit: BoxFit.cover,
+                  width: 50,
+                ),
               ),
             ),
             Positioned(
@@ -183,9 +186,15 @@ class WaterScreen extends StatelessWidget {
   }
 }
 
-// Mock PumpSpeed Widget (replace with actual implementation)
-class PumpSpeed extends StatelessWidget {
+class PumpSpeed extends StatefulWidget {
   const PumpSpeed({super.key});
+
+  @override
+  _PumpSpeedState createState() => _PumpSpeedState();
+}
+
+class _PumpSpeedState extends State<PumpSpeed> {
+  double pumpSpeed = 15; 
 
   @override
   Widget build(BuildContext context) {
@@ -206,10 +215,22 @@ class PumpSpeed extends StatelessWidget {
               color: Colors.blue[800],
             ),
           ),
+          Slider(
+            value: pumpSpeed,
+            onChanged: (newSpeed) {
+              setState(() {
+                pumpSpeed = newSpeed;
+              });
+            },
+            max: 30,
+            min: 0,
+            divisions: 30,
+            label: "${pumpSpeed.toInt()}",
+          ),
           const SizedBox(height: 10),
-        const  Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children:  [
+            children: [
               Text("Low"),
               Text("Medium"),
               Text("High"),
@@ -220,3 +241,5 @@ class PumpSpeed extends StatelessWidget {
     );
   }
 }
+const Color textColor = Colors.black;
+const Color primaryColor = Colors.blue;

@@ -48,7 +48,7 @@ class Temperature extends StatelessWidget {
                     backgroundColor: const Color(0xFFEAE4FF),
                     progressColor: textColor,
                     center: Text(
-                      "26\u00b0",
+                      "24\u00b0",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: textColor,
@@ -79,13 +79,10 @@ class Temperature extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  // For heating
                   const Heating(),
                   const SizedBox(height: 20),
-                  // for fan speed,
                   const FanSpeed(),
                   const SizedBox(height: 20),
-                  // for fan
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [fan(title: "FAN 1",isActice: true,),

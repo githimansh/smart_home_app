@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smart_app_home/Entertainment/entertainment.dart';
 import 'package:smart_app_home/Temperature/temperatur.dart';
 import 'package:smart_app_home/Water/water.dart';
 import 'package:smart_app_home/constants.dart';
-
 
 class Services extends StatelessWidget {
   const Services({super.key});
@@ -16,26 +16,42 @@ class Services extends StatelessWidget {
           children: [
             cardItems(title: "ENERGY", image: "images/energy.png"),
             cardItems(
-              onTab: (){   Navigator.push(context, MaterialPageRoute(builder: (context)=>Temperature()));},
-           
+              onTab: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Temperature()));
+              },
               title: "TEMPERATURE",
               image: "images/temperature.png",
-              color: primaryColor,
+              color: Color.fromARGB(255, 229, 121, 121),
               fontColor: Colors.white,
             ),
           ],
         ),
-        const SizedBox(height: 25,),
-          Row(
+        const SizedBox(
+          height: 25,
+        ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             cardItems(
-               onTab: (){   Navigator.push(context, MaterialPageRoute(builder: (context)=>WaterScreen()));},
-           
-              title: "WATER", image: "images/water.png"),
+              onTab: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WaterScreen()));
+              },
+              title: "WATER",
+              image: "images/water.png",
+              color: Color.fromARGB(255, 140, 143, 233),
+              fontColor: Colors.white,
+            ),
             cardItems(
+               onTab: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Entertainment()));
+                },
               title: "ENTERTAINMENT",
-              image: "images/entertainment.png",
+              image: "images/entertainment.jpg",
+              color: Color.fromARGB(255, 239, 140, 94),
+              fontColor: Colors.white,
             ),
           ],
         ),

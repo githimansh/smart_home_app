@@ -71,6 +71,8 @@ flutter:
     - images/temperature.png
     - images/water.png
     - images/image.png
+    - images/home1.jpg
+    - images/entertainment.jpg
 
 
   #   - images/a_dot_ham.jpeg

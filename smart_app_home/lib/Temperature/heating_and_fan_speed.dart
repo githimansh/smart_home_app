@@ -12,13 +12,13 @@ class _HeatingState extends State<Heating> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 15,
+      elevation: 5,
       borderRadius: BorderRadius.circular(8),
-      shadowColor: Colors.black12,
+      shadowColor: Colors.orangeAccent,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 14),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
         child: Column(
@@ -27,7 +27,7 @@ class _HeatingState extends State<Heating> {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: Text(
-                "HEATING",
+                "Temperature",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -42,7 +42,7 @@ class _HeatingState extends State<Heating> {
                   heat = newHeatin;
                 });
               },
-              max: 40,
+              max: 20,
             ),
             const Padding(
               padding: EdgeInsets.symmetric(
@@ -64,7 +64,7 @@ class _HeatingState extends State<Heating> {
                   Text(
                     "30\u00b0",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black26),
+                        fontWeight: FontWeight.bold, color: Colors.black54),
                   ),
                 ],
               ),
@@ -90,7 +90,7 @@ class _FanSpeedState extends State<FanSpeed> {
     return Material(
       elevation: 15,
       borderRadius: BorderRadius.circular(8),
-      shadowColor: Colors.black12,
+      shadowColor: Colors.orangeAccent,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
@@ -103,7 +103,7 @@ class _FanSpeedState extends State<FanSpeed> {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: Text(
-                "FAN SPEED",
+                "Fan Speed",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -128,19 +128,19 @@ class _FanSpeedState extends State<FanSpeed> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "LOW",
+                    "Low",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black54),
                   ),
                   Text(
-                    "MID",
+                    "Mid",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black54),
                   ),
                   Text(
-                    "HIGH",
+                    "High",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black26),
+                        fontWeight: FontWeight.bold, color: Colors.black54),
                   ),
                 ],
               ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Heating extends StatefulWidget {
-  const Heating({super.key});
+class Pump extends StatefulWidget {
+  const Pump({super.key});
 
   @override
-  State<Heating> createState() => _HeatingState();
+  State<Pump> createState() => _PumpState();
 }
 
-class _HeatingState extends State<Heating> {
+class _PumpState extends State<Pump> {
   double heat = 12;
   @override
   Widget build(BuildContext context) {
