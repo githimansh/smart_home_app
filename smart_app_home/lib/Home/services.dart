@@ -73,8 +73,8 @@ class Services extends StatelessWidget {
         shadowColor: Colors.white38,
         borderRadius: BorderRadius.circular(24),
         child: Container(
-          width: 180,
-          padding: const EdgeInsets.symmetric(vertical: 35),
+          width: 170,
+          padding: const EdgeInsets.symmetric(vertical: 25),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(24),
@@ -86,7 +86,7 @@ class Services extends StatelessWidget {
                 height: 80,
               ),
               const SizedBox(
-                height: 10,
+                height: 8,
               ),
               Text(
                 title,

@@ -15,25 +15,30 @@ class _HomePageState extends State<SmartHomePage> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        margin: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+        margin: const EdgeInsets.only(top: 15, left: 5, right: 5, bottom: 15),
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Icon(Icons.person),
                   Text(
                     "Hi Himanshu",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 21,
                       fontWeight: FontWeight.bold,
                       color: textColor,
                     ),
                   ),
-                  Image.asset(
-                    "images/menu.png",
-                    height: 35,
+                  
+                  Padding(
+                    padding: const EdgeInsets.only(left: 150),
+                    child: Image.asset(
+                      "images/menu.png",
+                      height: 35,
+                    ),
                   ),
                 ],
               ),

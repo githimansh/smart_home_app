@@ -14,8 +14,8 @@ class Temperature extends StatelessWidget {
       body: SafeArea(
           child: Container(
         margin: const EdgeInsets.only(
-          left: 25,
-          right: 25,
+          left: 10,
+          right: 10,
         ),
         child: Column(
           children: [
@@ -56,7 +56,7 @@ class Temperature extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 25,
+                    height: 15,
                   ),
                   Center(
                     child: Text(
@@ -66,7 +66,7 @@ class Temperature extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +78,7 @@ class Temperature extends StatelessWidget {
                       generalAndServices(title: "SERVICES")
                     ],
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 30),
                   const Heating(),
                   const SizedBox(height: 20),
                   const FanSpeed(),

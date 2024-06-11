@@ -12,8 +12,8 @@ class WaterScreen extends StatelessWidget {
           child: Container(
         margin: const EdgeInsets.only(
           top: 18,
-          left: 25,
-          right: 25,
+          left: 10,
+          right: 10,
         ),
         child: Column(
           children: [
