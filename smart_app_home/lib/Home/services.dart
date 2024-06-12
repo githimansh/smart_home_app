@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_app_home/Enegry/enegry.dart';
 import 'package:smart_app_home/Entertainment/entertainment.dart';
 import 'package:smart_app_home/Temperature/temperatur.dart';
 import 'package:smart_app_home/Water/water.dart';
@@ -14,8 +15,14 @@ class Services extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            cardItems(title: "ENERGY", image: "images/energy.png"),
             cardItems(
+               onTab: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Energy()));
+              },
+              title: "ENERGY", image: "images/energy.png"),
+            cardItems(
+              
               onTab: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Temperature()));

@@ -2,8 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smart_app_home/constants.dart';
 
-class Entertainment extends StatelessWidget {
+class Entertainment extends StatefulWidget {
   const Entertainment({super.key});
+
+  @override
+  _EntertainmentState createState() => _EntertainmentState();
+}
+
+class _EntertainmentState extends State<Entertainment> {
+  double volumePercentage = 0.7;
+  bool isPlaying = false;
+
+  void _updateVolume(double newVolume) {
+    setState(() {
+      volumePercentage = newVolume / 100;
+    });
+  }
+
+  void _togglePlayPause() {
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +62,11 @@ class Entertainment extends StatelessWidget {
                     CircularPercentIndicator(
                       radius: 100,
                       lineWidth: 20,
-                      percent: 0.8,
+                      percent: volumePercentage,
                       backgroundColor: const Color(0xFFEAE4FF),
                       progressColor: textColor,
                       center: Text(
-                        "70%",
+                        "${(volumePercentage * 100).toInt()}%",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: textColor,
@@ -77,20 +97,26 @@ class Entertainment extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 40),
-                    const MediaControls(),
+                    MediaControls(
+                      isPlaying: isPlaying,
+                      onPlayPauseToggle: _togglePlayPause,
+                    ),
                     const SizedBox(height: 20),
-                    const VolumeControl(),
+                    VolumeControl(
+                      initialVolume: volumePercentage * 100,
+                      onVolumeChanged: _updateVolume,
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         device(
                           title: "TV",
-                          isActive: true,
+                          isActive: isPlaying,
                         ),
                         device(
                           title: "SPEAKER",
-                          isActive: true,
+                          isActive: isPlaying,
                         ),
                         device(
                           title: "LIGHTS",
@@ -187,7 +213,14 @@ class Entertainment extends StatelessWidget {
 }
 
 class MediaControls extends StatelessWidget {
-  const MediaControls({super.key});
+  final bool isPlaying;
+  final VoidCallback onPlayPauseToggle;
+
+  const MediaControls({
+    super.key,
+    required this.isPlaying,
+    required this.onPlayPauseToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -212,8 +245,14 @@ class MediaControls extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Icon(Icons.play_arrow, color: Colors.blue[800], size: 36),
-              Icon(Icons.pause, color: Colors.blue[800], size: 36),
+              GestureDetector(
+                onTap: onPlayPauseToggle,
+                child: Icon(
+                  isPlaying ? Icons.pause : Icons.play_arrow,
+                  color: Colors.blue[800],
+                  size: 36,
+                ),
+              ),
               Icon(Icons.stop, color: Colors.blue[800], size: 36),
             ],
           ),
@@ -224,14 +263,27 @@ class MediaControls extends StatelessWidget {
 }
 
 class VolumeControl extends StatefulWidget {
-  const VolumeControl({super.key});
+  final double initialVolume;
+  final ValueChanged<double> onVolumeChanged;
+
+  const VolumeControl({
+    super.key,
+    required this.initialVolume,
+    required this.onVolumeChanged,
+  });
 
   @override
   _VolumeControlState createState() => _VolumeControlState();
 }
 
 class _VolumeControlState extends State<VolumeControl> {
-  double volume = 20; // Initial volume level
+  late double volume;
+
+  @override
+  void initState() {
+    super.initState();
+    volume = widget.initialVolume;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -257,6 +309,7 @@ class _VolumeControlState extends State<VolumeControl> {
             onChanged: (newVolume) {
               setState(() {
                 volume = newVolume;
+                widget.onVolumeChanged(newVolume);
               });
             },
             max: 100,
@@ -267,7 +320,7 @@ class _VolumeControlState extends State<VolumeControl> {
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+            children: const [
               Text("Low"),
               Text("Medium"),
               Text("High"),

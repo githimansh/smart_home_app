@@ -1,109 +1,140 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class WaterScreen extends StatelessWidget {
+class WaterScreen extends StatefulWidget {
   const WaterScreen({super.key});
+
+  @override
+  _WaterScreenState createState() => _WaterScreenState();
+}
+
+class _WaterScreenState extends State<WaterScreen> {
+  double waterLevel = 0.65;
+  bool isValve1Active = false;
+  bool isValve2Active = false;
+  bool isValve3Active = false;
+
+  void updateWaterLevel(double pumpSpeed) {
+    setState(() {
+      waterLevel = pumpSpeed / 30; 
+
+      if (pumpSpeed <= 10) {
+        isValve1Active = true;
+        isValve2Active = false;
+        isValve3Active = false;
+      } else if (pumpSpeed <= 20) {
+        isValve1Active = false;
+        isValve2Active = true;
+        isValve3Active = false;
+      } else {
+        isValve1Active = false;
+        isValve2Active = false;
+        isValve3Active = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Container(
-        margin: const EdgeInsets.only(
-          top: 18,
-          left: 10,
-          right: 10,
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    color: textColor,
-                  ),
-                ),
-                Image.asset(
-                  "images/menu.png",
-                  height: 30,
-                ),
-              ],
-            ),
-            Expanded(
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
+        child: Container(
+          margin: const EdgeInsets.only(
+            top: 18,
+            left: 10,
+            right: 10,
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircularPercentIndicator(
-                    radius: 110,
-                    lineWidth: 20,
-                    percent: 0.65,
-                    backgroundColor: Color.fromARGB(255, 217, 213, 233),
-                    progressColor: Colors.blue,
-                    center: Text(
-                      "85%",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: textColor,
-                          fontSize: 45),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: textColor,
                     ),
                   ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Center(
-                    child: Text(
-                      "WATER LEVEL",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: textColor),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      generalAndServices(
-                        title: "GENERAL",
-                        isActive: true,
-                      ),
-                      generalAndServices(title: "SERVICES")
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                
-                  const PumpSpeed(),
-                  const SizedBox(height: 20),
-                  
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      valve(
-                        title: "VALVE 1",
-                        isActive: true,
-                      ),
-                      valve(
-                        title: "VALVE 2",
-                        isActive: true,
-                      ),
-                      valve(
-                        title: "VALVE 3",
-
-                      ),
-                    ],
+                  Image.asset(
+                    "images/menu.png",
+                    height: 30,
                   ),
                 ],
               ),
-            )
-          ],
+              Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    CircularPercentIndicator(
+                      radius: 110,
+                      lineWidth: 20,
+                      percent: waterLevel,
+                      backgroundColor: Color.fromARGB(255, 217, 213, 233),
+                      progressColor: Colors.blue,
+                      center: Text(
+                        "${(waterLevel * 100).toInt()}%",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: textColor,
+                          fontSize: 45,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Center(
+                      child: Text(
+                        "WATER LEVEL",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: textColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        generalAndServices(
+                          title: "GENERAL",
+                          isActive: true,
+                        ),
+                        generalAndServices(title: "SERVICES")
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    PumpSpeed(onSpeedChanged: updateWaterLevel),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        valve(
+                          title: "VALVE 1",
+                          isActive: isValve1Active,
+                        ),
+                        valve(
+                          title: "VALVE 2",
+                          isActive: isValve2Active,
+                        ),
+                        valve(
+                          title: "VALVE 3",
+                          isActive: isValve3Active,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 
@@ -143,7 +174,7 @@ class WaterScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-            )
+            ),
           ],
         ),
         const SizedBox(
@@ -155,7 +186,7 @@ class WaterScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: isActive ? Colors.black54 : Colors.black26,
           ),
-        )
+        ),
       ],
     );
   }
@@ -187,14 +218,16 @@ class WaterScreen extends StatelessWidget {
 }
 
 class PumpSpeed extends StatefulWidget {
-  const PumpSpeed({super.key});
+  final Function(double) onSpeedChanged;
+
+  const PumpSpeed({super.key, required this.onSpeedChanged});
 
   @override
   _PumpSpeedState createState() => _PumpSpeedState();
 }
 
 class _PumpSpeedState extends State<PumpSpeed> {
-  double pumpSpeed = 15; 
+  double pumpSpeed = 15;
 
   @override
   Widget build(BuildContext context) {
@@ -221,6 +254,7 @@ class _PumpSpeedState extends State<PumpSpeed> {
               setState(() {
                 pumpSpeed = newSpeed;
               });
+              widget.onSpeedChanged(newSpeed);
             },
             max: 30,
             min: 0,
@@ -230,7 +264,7 @@ class _PumpSpeedState extends State<PumpSpeed> {
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+            children: const [
               Text("Low"),
               Text("Medium"),
               Text("High"),
@@ -241,5 +275,6 @@ class _PumpSpeedState extends State<PumpSpeed> {
     );
   }
 }
+
 const Color textColor = Colors.black;
 const Color primaryColor = Colors.blue;
